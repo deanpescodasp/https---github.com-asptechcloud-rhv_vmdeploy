@@ -1,0 +1,17 @@
+---
+- name: deploy vm from template
+  hosts: rhv
+  tasks:
+    
+    - name: Login
+      ovirt_auth:
+        url: "{{ lookup('env','OVIRT_URL') }}"
+        username: "{{ lookup('env','OVIRT_USERNAME') }}"
+        password: "{{ lookup('env','OVIRT_PASSWORD') }}"
+    
+    - name: deploy vm
+      ovirt_vms:
+        auth: "{{ ovirt_auth }}"
+        name: deantestvm
+        cluster: Deafault
+        template: HSTKTPL01
